@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.attraction.model.mapper.AttractionMapper">
+
+	<select id="search" resultType="AttractionDto" parameterType="SearchCondition">
+		select contentid, addr, areacode, contenttypeid, firstimage, mapx, mapy, sigungucode, title
+		from attraction
+		where contenttypeid = #{contentTypeId} and areacode = #{areaCode} and sigungucode = #{sigunguCode}
+		<if test="attractionSearch != ''">
+		and title like concat('%', #{attractionSearch}, '%')
+		</if>
+		order by contentid limit 100
+	</select>
+	
+	<select id="detail" resultType="DetailDto" parameterType="string">
+		select a.title, a.addr, d.overview, a.firstimage
+		from attraction a join detail d
+		where a.contentid=d.contentid and a.contentid=#{id}
+	</select>
+</mapper>
