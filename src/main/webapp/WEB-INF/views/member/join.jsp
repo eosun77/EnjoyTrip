@@ -89,7 +89,7 @@
     	<script>
 	    	let isUseId = false;
 	    	let isUseName = false;
-	    	
+	    	let isUseEmail = false;
 	    	
 		    document.querySelector("#userid").addEventListener("keyup", function () {
 		    	let userid = this.value;
@@ -142,30 +142,26 @@
 		    });
 		    
 		    
-/* 		    document.querySelector("#userid").addEventListener("keyup", function () {
-		    	let userid = this.value;
-		    	let resultDiv = document.querySelector("#idcheck-result");
-		    	if(userid.length < 6 || userid.length > 16) {
-		    		resultDiv.setAttribute("class", "mb-3 text-dark");
-		    		resultDiv.textContent = "아이디는 6자 이상 16자 이하 입니다.";
-		    		isUseId = false;
-		    	} else {
-		    		fetch("${root}/member/" + userid)
+ 		    document.querySelector("#emailId").addEventListener("keyup", function () {
+		    	let userEmail = this.value;
+		    	let resultDiv = document.querySelector("#emailcheck-result");
+		    	/*가용한 이메일 형식인지 확인  */
+		    		fetch("${root}/member/email/" + userEmail)
 		    		.then(response => response.text())
 		    		.then(data => {
 		    			if(data == 0) {
 		    				console.log(data);
 			    			resultDiv.setAttribute("class", "mb-3 text-primary");
-			    		    resultDiv.textContent = userid + "는 사용할 수 있습니다.";
-			    		    isUseId = true;
+			    		    resultDiv.textContent = userEmail + "는 사용할 수 있습니다.";
+			    		    isUseEmail= true;
 			    		} else {
 			    			resultDiv.setAttribute("class", "mb-3 text-danger");
-			      		    resultDiv.textContent = userid + "는 사용할 수 없습니다.";
-			      		    isUseId = false;
+			      		    resultDiv.textContent = userEmail + "는 사용할 수 없습니다.";
+			      		    isUseEmail = false;
 			    		}
 		    		});
-		    	}
-		    }); */
+		    	
+		    }); 
 		   
 		    
 		    document.querySelector("#btn-join").addEventListener("click", function () {
@@ -181,14 +177,23 @@
 		        } else if (document.querySelector("#userpwd").value != document.querySelector("#pwdcheck").value) {
 		          alert("비밀번호 확인!!");
 		          return;
-		        } else if (!isUseId) {
+		         
+		        } 
+		        else if (!document.querySelector("#emailId").value) {
+			          alert("이메일 입력!!");
+			          return;
+			         
+			        }
+		        else if (!isUseId) {
 		          alert("아이디 확인!!");
 		          return;
 		        } else if(!isUseName){
 		        	alert("이름 확인!!");
 		        	return;
-		        }
-		        else {
+		        } else if(!isUseEmail){
+		        	alert("이메일 확인!!");
+		        	return;
+		        }else {
 		          let form = document.querySelector("#form-join");
 		          form.setAttribute("action", "${root}/member/join");
 		          form.submit();

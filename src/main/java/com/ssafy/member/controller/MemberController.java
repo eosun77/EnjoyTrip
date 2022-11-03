@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +43,63 @@ public class MemberController {
 	@GetMapping("/login")
 	public String login() {
 		return "member/login";
+	}
+	
+	@GetMapping("/pwdchange")
+	public String pwdChange()
+	{	
+		logger.debug("pwdChange:");
+		return "member/pwdchange";
+	}
+	
+	@GetMapping("/attractionchange")
+	public String attractionChange() {
+//		관심장소 등록하는 지도로 이동.
+		return "redirect:/";
+	}
+	
+	@PostMapping("/modify")
+	public String modify(MemberDto newInfo, HttpSession session, Model model) {
+//		DB수정 및 세션가져와서 수정.
+		logger.debug("newInfo : {}", newInfo);
+		
+		try {
+//			session때문에 try,catch로 묶기
+			memberService.updateMember(newInfo);
+
+			MemberDto user = (MemberDto)session.getAttribute("userinfo");
+			user.setAddr(newInfo.getAddr());
+			user.setAddr2(newInfo.getAddr2());
+			user.setZipCode(newInfo.getZipCode());
+			session.setAttribute("userinfo", user);
+		}catch (Exception e) {
+			// TODO: handle exception
+			
+			e.printStackTrace();
+			model.addAttribute("msg", "처리중 에러 발생!!");
+			return "/error/error";
+		}
+
+		
+		return "redirect:/";
+	}
+	
+
+	
+	@GetMapping("/delete/{id}")
+	public String delete(@PathVariable("id") String id) {
+		
+		logger.debug("delete : {} ",id);
+		try {
+			memberService.deleteMember(id);
+			
+			return "redirect:/member/logout";
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "redirect:/index";
+		
 	}
 	
 	@PostMapping("/login")
@@ -95,6 +154,13 @@ public class MemberController {
 		}
 	}
 	
+	
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "member/mypage";
+	}
+	
+	
 	@GetMapping("/id/{userid}")
 	@ResponseBody
 	public String idCheck(@PathVariable("userid") String userId) throws Exception {
@@ -115,7 +181,7 @@ public class MemberController {
 	
 	@GetMapping("/email/{userEmail}")
 	@ResponseBody
-	public String emailCheck(@PathVariable("email") String email) throws Exception {
+	public String emailCheck(@PathVariable("userEmail") String email) throws Exception {
 		logger.debug("emailCheck email : {}", email);
 //		namecheck로 바꿀것.
 		int cnt = memberService.emailCheck(email);

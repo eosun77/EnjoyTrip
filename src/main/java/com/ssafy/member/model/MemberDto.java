@@ -16,7 +16,6 @@ public class MemberDto {
 	@ApiModelProperty(value = "가입일")
 	private String joinDate;
 
-
 	@ApiModelProperty(value = "이메일")
 	private String email;
 	
@@ -29,6 +28,9 @@ public class MemberDto {
 	@ApiModelProperty(value = "우편번호")
 	private String zipCode;
 	
+	@ApiModelProperty(value = "아이디번호")
+	private String id;
+		
 	public String getEmail() {
 		return email;
 	}
@@ -69,8 +71,6 @@ public class MemberDto {
 		this.id = id;
 	}
 
-	@ApiModelProperty(value = "아이디번호")
-	private String id;
 	
 	
 	public String getUserId() {

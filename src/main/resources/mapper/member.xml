@@ -7,6 +7,7 @@
 	<resultMap type="memberDto" id="member">
 		<result column="uid" property="userId"/>
 		<result column="name" property="userName"/>
+		<result column ="id" property ="id"/>
 	</resultMap>
 	
 	<resultMap type="memberDto" id="memberAll" extends="member">
@@ -40,8 +41,6 @@
 	</select>
 	
 	
-	
-	
 	<insert id="joinMember" parameterType="memberDto">
 		insert into user (uid,password, name, email, addr, addr2, zipcode )
 		values (
@@ -57,12 +56,35 @@
 	</insert>
 	
 
-<!-- 	<select id="loginMember" parameterType="map" resultMap="member">
-		select user_id, user_name
-		from members
-		where user_id = #{userid} and user_password = #{userpwd}
+
+	<!-- login -->
+	<select id="loginMember" parameterType="map" resultMap="memberAll">
+		select *
+		from user
+		where uid = #{userid} and password = #{userpwd}
 	</select>
 	
+	<!-- update -->
+		<update id="updateMember" parameterType="memberDto">
+		update user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="addr != null">addr = #{addr},</if>
+			<if test="addr2 != null">addr2 = #{addr2},</if>
+			<if test="zipCode != null">zipCode = #{zipCode},</if>
+		</trim>
+		where id = #{id}
+	</update>
+	
+	
+	<!-- delete  -->
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from members
+		where id = #{id}
+	</delete>
+		
+	
+	<!-- 
 	<select id="listMember" resultMap="memberAll">
 		select user_name, user_id, user_password, email_id, email_domain, join_date
 		from members
@@ -74,20 +96,7 @@
 		from members
 		where user_id = #{userId}
 	</select>
-	
-	<update id="updateMember" parameterType="memberDto">
-		update members
-		<trim prefix="set" suffixOverrides=",">
-			<if test="userPwd != null">user_password = #{userPwd},</if>
-			<if test="emailId != null">email_id = #{emailId},</if>
-			<if test="emailDomain != null">email_domain = #{emailDomain},</if>
-		</trim>
-		where user_id = #{userId}
-	</update>
-	
-	<delete id="deleteMember" parameterType="String">
-		delete from members
-		where user_id = #{userId}
-	</delete> -->
+
+	 -->
 	
 </mapper>
