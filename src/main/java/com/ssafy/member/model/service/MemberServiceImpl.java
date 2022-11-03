@@ -69,6 +69,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberMapper.emailCheck(userEmail);
 	}
+
+	@Override
+	public String findPassword(String userId) {
+		// TODO Auto-generated method stub
+		return memberMapper.findPassword(userId);
+	}
 	
 
 }

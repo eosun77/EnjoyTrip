@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -62,15 +64,20 @@ public class MemberController {
 	public String modify(MemberDto newInfo, HttpSession session, Model model) {
 //		DB수정 및 세션가져와서 수정.
 		logger.debug("newInfo : {}", newInfo);
-		
 		try {
 //			session때문에 try,catch로 묶기
 			memberService.updateMember(newInfo);
 
 			MemberDto user = (MemberDto)session.getAttribute("userinfo");
-			user.setAddr(newInfo.getAddr());
-			user.setAddr2(newInfo.getAddr2());
-			user.setZipCode(newInfo.getZipCode());
+			String addr = newInfo.getAddr();
+			String addr2 = newInfo.getAddr2();
+			String zipCode = newInfo.getZipCode();
+			if(zipCode != null && !zipCode.equals(""))
+				user.setZipCode(zipCode);
+			if(addr != null && !addr.equals(""))
+				user.setAddr(addr);
+			if(addr2 != null && !addr2.equals(""))
+				user.setAddr2(addr2);
 			session.setAttribute("userinfo", user);
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -85,6 +92,21 @@ public class MemberController {
 	}
 	
 
+	
+	@PostMapping("/findquery")
+	public ResponseEntity<?> findQuery(@RequestParam String userId) {
+		logger.debug("findquery:------------------");
+		String pwd = memberService.findPassword(userId);
+		logger.debug("findPWD-------------",pwd);
+		return null;
+	}
+	
+	@GetMapping("/findpassword")
+	public String findPassword() {
+		
+		return "/member/findpassword";
+	}
+	
 	
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable("id") String id) {
@@ -101,6 +123,9 @@ public class MemberController {
 		return "redirect:/index";
 		
 	}
+	
+	
+	
 	
 	@PostMapping("/login")
 	public String login(@RequestParam Map<String, String> map, Model model, HttpSession session, HttpServletResponse response) {
@@ -187,6 +212,13 @@ public class MemberController {
 		int cnt = memberService.emailCheck(email);
 		return cnt + "";
 	}
+	
+	
+	private ResponseEntity<String> exceptionHandling(Exception e) {
+		return new ResponseEntity<String>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	
 	
 	
 }

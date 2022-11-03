@@ -68,9 +68,9 @@
 		<update id="updateMember" parameterType="memberDto">
 		update user
 		<trim prefix="set" suffixOverrides=",">
-			<if test="addr != null">addr = #{addr},</if>
-			<if test="addr2 != null">addr2 = #{addr2},</if>
-			<if test="zipCode != null">zipCode = #{zipCode},</if>
+			<if test='addr != null and !addr.equals("")'>addr = #{addr},</if>
+			<if test='addr2 != null and !addr2.equals("")'>addr2 = #{addr2},</if>
+			<if test='zipCode != null and !zipCode.equals("")'>zipCode = #{zipCode},</if>
 		</trim>
 		where id = #{id}
 	</update>
@@ -79,10 +79,17 @@
 	<!-- delete  -->
 	
 	<delete id="deleteMember" parameterType="String">
-		delete from members
+		delete from user
 		where id = #{id}
 	</delete>
 		
+	
+	<!-- findpwd -->
+	<select id="findPassword" parameterType="String" resultType="String">
+		select password
+		from user
+		where uid= #{userId}
+	</select>
 	
 	<!-- 
 	<select id="listMember" resultMap="memberAll">

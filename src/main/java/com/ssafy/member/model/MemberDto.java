@@ -29,7 +29,7 @@ public class MemberDto {
 	private String zipCode;
 	
 	@ApiModelProperty(value = "아이디번호")
-	private String id;
+	private int id;
 		
 	public String getEmail() {
 		return email;
@@ -63,11 +63,11 @@ public class MemberDto {
 		this.zipCode = zipCode;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

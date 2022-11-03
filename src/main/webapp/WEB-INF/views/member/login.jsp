@@ -24,7 +24,7 @@
 	    		<label for="userpwd" class="form-label fs-5">비밀번호</label>
 	        	<input type="password" class="form-control" id="userpwd" name="userpwd" style=height:45px />
 	    	</div>
-	    	<a class="text-decoration-none" href="#" style="padding: 0px">비밀번호를 잊으셨나요?</a>
+	    	<a class="text-decoration-none" href="${root}/member/findpassword" style="padding: 0px">비밀번호를 잊으셨나요?</a>
 	    	<button type="submit" class="btn btn-outline-primary w-100 mt-4 fs-5" style=height:45px>로그인</button>
 	    	<div class="mt-4 text-center">
 	       		회원이 아니세요?
@@ -34,4 +34,3 @@
 	</form>
 	</body>
 </html>
-	
