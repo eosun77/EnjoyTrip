@@ -1,0 +1,85 @@
+
+body{
+    overflow: scroll;
+    /* position: relative; */
+}
+
+.img-banner{
+    width:100%;
+    z-index: 0;
+    position: relative;
+
+     
+} 
+ 
+ 
+.table-title{
+	font-size: 3vh;
+}
+
+#content{
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    font-size: 2vh;
+    min-width:30%;
+    min-height:50%;
+    box-shadow: 2vh 1vh 1vh gray;
+}
+
+
+#banner-img{
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+
+.table-row{
+	padding : 1vh 0;
+}
+.table-row input{
+    width:80%;
+
+}
+
+.title{
+	font-size: 2vh;	
+}
+.favorite-list{
+	min-width : 100%;
+	min-height : 10vh;
+}
+.favorite > div{
+	min-width:100%;
+	position: relative;
+	margin: 1vh 0;
+}
+.favorite-add{
+	min-width : 40%;
+}
+
+#signup-form{
+	border : 0px;
+	width: 90%;
+}
+
+#signup-form>div{
+	width:100%;
+}
+
+.input-file-button, .btn-cadetblue{
+  background-color:cadetblue;
+  border-radius: 4px;
+  color: white;
+}
+
+.btn-add{
+	position: absolute;
+	right :0;
+}

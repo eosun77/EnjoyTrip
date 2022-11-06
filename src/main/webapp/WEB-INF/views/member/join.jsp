@@ -3,9 +3,20 @@
 <html lang="en">
   <head>
     <%@ include file="/WEB-INF/views/include/head.jsp" %>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="${root}/assets/css/thema.css"/>
+    <link href="${root}/assets/css/signup.css" rel="stylesheet" />
+	<script src="${root}/assets/js/signup.js"></script>
+ 
   </head>
   <body>
-    <form class="position-absolute top-50 start-50 translate-middle" id="form-join" method="POST" action="" style="width:400px">
+  
+ 
+  		<%@ include file="/WEB-INF/views/include/nav.jsp" %>
+	<div class="img-banner">
+			<%@ include file="/WEB-INF/views/include/background.jsp" %>
+  
+	    <form class="" id="content" method="POST" action="" style="width:400px">
         <input type="hidden" name="act" value="signup"/>
         <div class="text-center fw-bold" style="font-size: 50px;">SIGN UP</div>
         <div class="mb-3 text-center text-secondary">Enjoy-Trip</div>
@@ -85,7 +96,7 @@
       			<a class="btn btn-primary w-100 mt-4 fs-5" style=height:45px href="/">홈으로</a>
             </div>
     	</form>
-    	
+    </div>
     	<script>
 	    	let isUseId = false;
 	    	let isUseName = false;
@@ -194,7 +205,7 @@
 		        	alert("이메일 확인!!");
 		        	return;
 		        }else {
-		          let form = document.querySelector("#form-join");
+		          let form = document.querySelector("#content");
 		          form.setAttribute("action", "${root}/member/join");
 		          form.submit();
 		        }

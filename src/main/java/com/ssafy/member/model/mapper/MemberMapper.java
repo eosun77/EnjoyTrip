@@ -24,5 +24,6 @@ public interface MemberMapper {
 	void updateMember(MemberDto memberDto) throws SQLException;
 	void deleteMember(String userId) throws SQLException;
 	String findPassword(String userId);
+	List<String> backGround();
 	
 }

@@ -1,0 +1,13 @@
+#main-title{
+ position: absolute;
+  top: 40%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  z-index: 1;
+  font-size: 5vw; 
+  text-shadow:3px 3px gray;
+  color: rgba(235, 237, 240, 0.822);
+  min-width: 50%;
+  min-height: 50%;
+
+}

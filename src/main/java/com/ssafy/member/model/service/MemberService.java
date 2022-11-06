@@ -21,5 +21,6 @@ public interface MemberService {
 	void updateMember(MemberDto memberDto) throws Exception;
 	void deleteMember(String userid) throws Exception;
 	String findPassword(String userId);
+	List<String> backGround();
 	
 }

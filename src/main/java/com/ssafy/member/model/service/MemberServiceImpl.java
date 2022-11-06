@@ -75,6 +75,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberMapper.findPassword(userId);
 	}
+
+	@Override
+	public List<String> backGround() {
+		// TODO Auto-generated method stub
+		return memberMapper.backGround();
+	}
 	
 
 }

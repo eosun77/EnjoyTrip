@@ -1,0 +1,14 @@
+@keyframes load-img {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+ 
+#background-img{
+    width: 100%;
+    height: 100vh;
+}
+

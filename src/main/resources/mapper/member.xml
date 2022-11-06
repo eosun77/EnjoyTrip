@@ -105,5 +105,25 @@
 	</select>
 
 	 -->
+	 
+	 <!-- background  -->
+	 <select id="backGround" resultType="String">
+	 
+	 SELECT t.firstimage
+	 FROM
+	 	(SELECT ROUND(
+	 				RAND() * (
+			 			(SELECT id FROM attraction order by id desc limit 1) 
+			 			- (SELECT id FROM attraction LIMIT 1)
+		 			) 
+		 			+(SELECT id FROM attraction LIMIT 1)
+	 			) random_num, @num:=@num + 1
+	 	 FROM (SELECT @num:=0) AS a, attraction
+	 	LIMIT 20
+	 	 ) as r, attraction as t
+	WHERE
+		r.random_num = t.id
+	 	
+	 </select>
 	
 </mapper>

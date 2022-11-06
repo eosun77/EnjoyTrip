@@ -1,6 +1,8 @@
 package com.ssafy.member.controller;
 
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -93,12 +96,23 @@ public class MemberController {
 	
 
 	
+	@GetMapping("/background")
+	@ResponseBody
+	public List<String> backGround(){
+//		entity로 반환해보자 REST형식.
+		List<String> imgs = memberService.backGround();
+		logger.debug(Arrays.toString(imgs.toArray()));
+		return imgs;
+	}
+	
+	
 	@PostMapping("/findquery")
-	public ResponseEntity<?> findQuery(@RequestParam String userId) {
-		logger.debug("findquery:------------------");
-		String pwd = memberService.findPassword(userId);
+	@ResponseBody
+	public String findQuery(@RequestBody MemberDto memberDto) {
+		logger.debug("findquery:------------------,"+ memberDto);
+		String pwd = memberService.findPassword(memberDto.getUserId());
 		logger.debug("findPWD-------------",pwd);
-		return null;
+		return pwd+"";
 	}
 	
 	@GetMapping("/findpassword")
@@ -130,8 +144,9 @@ public class MemberController {
 	@PostMapping("/login")
 	public String login(@RequestParam Map<String, String> map, Model model, HttpSession session, HttpServletResponse response) {
 		try {
+			
 			MemberDto memberDto = memberService.loginMember(map);
-			logger.debug("memberDto : {}", memberDto);
+			logger.debug("login : {}", memberDto);
 			if(memberDto != null) {
 				session.setAttribute("userinfo", memberDto);
 				

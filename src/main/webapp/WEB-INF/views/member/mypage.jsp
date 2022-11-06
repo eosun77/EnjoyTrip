@@ -1,24 +1,47 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
   <head>
     <%@ include file="/WEB-INF/views/include/head.jsp" %>
+    <link rel="stylesheet" href="${root}/assets/css/thema.css" />
+    <link href="${root}/assets/css/signup.css" rel="stylesheet" />
+    <script src="${root}/assets/js/signup.js"></script>
   </head>
   <body>
-    <div class="position-absolute top-50 start-50 translate-middle">
-      <form method="post" id="form-modify" action="${root}/member/modify" style="width: 400px">
+    <%@ include file="/WEB-INF/views/include/nav.jsp" %>
+    <div class="img-banner">
+      <%@ include file="/WEB-INF/views/include/background.jsp" %>
+      <form
+        method="post"
+        id="content"
+        action="${root}/member/modify"
+        style="width: 400px"
+      >
         <input type="hidden" name="id" value="${userinfo.id}" />
         <div class="text-center fw-bold" style="font-size: 50px">MY PAGE</div>
         <div class="mb-3 text-center text-secondary">Enjoy-Trip</div>
         <div class="mb-3">
           <label for="userid" class="form-label fs-5">아이디</label>
-          <div type="text" class="form-control" id="userId" name="userid" style="height: 45px">
+          <div
+            type="text"
+            class="form-control"
+            id="userId"
+            name="userid"
+            style="height: 45px"
+          >
             ${userinfo.userId}
           </div>
         </div>
         <div class="mb-3">
           <label for="userName" class="form-label fs-5">닉네임</label>
-          <div type="text" class="form-control" id="userName" name="userName" style="height: 45px">
+          <div
+            type="text"
+            class="form-control"
+            id="userName"
+            name="userName"
+            style="height: 45px"
+          >
             ${userinfo.userName}
           </div>
         </div>
@@ -95,10 +118,6 @@
         >
           회원정보수정하기
         </button>
-        <%@ include file="/WEB-INF/views/include/footer.jsp" %>
-      </form>
-
-      <form method="GET" action="${root}/member/delete/${userinfo.id}" id="form-delete">
         <button
           type="button"
           id="btn-delete"
@@ -107,6 +126,8 @@
         >
           회원탈퇴
         </button>
+
+        <%@ include file="/WEB-INF/views/include/footer.jsp" %>
       </form>
     </div>
   </body>
@@ -115,7 +136,7 @@
 
     let btnModify = document.querySelector("#btn-modify");
     btnModify.addEventListener("click", () => {
-      let form = document.querySelector("#form-modify");
+      let form = document.querySelector("#content");
 
       let addr = document.querySelector("#addr").value;
       let addr2 = document.querySelector("#addr2").value;
@@ -132,9 +153,14 @@
 
     //회원탈퇴 누를경우 : delete메서드로 삭제
     let btnDelte = document.querySelector("#btn-delete");
-    btnDelte.addEventListener("click", () => {
-      let form = document.querySelector("#form-delete");
-      form.submit();
+    btnDelte.addEventListener("click", async () => {
+
+      try{
+        await fetch("${root}/member/delete/${userinfo.id}")
+      }
+      catch(err){
+        alert("삭제실패!")
+      }
     });
     // => restapi로 싹 바꾸기.
   </script>
