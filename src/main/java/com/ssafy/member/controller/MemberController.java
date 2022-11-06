@@ -94,7 +94,11 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "member/mypage";
+	}
+	
 	
 	@GetMapping("/background")
 	@ResponseBody
@@ -172,6 +176,7 @@ public class MemberController {
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
+		logger.debug("logout:-----");
 		session.invalidate();
 		return "redirect:/";
 	}
@@ -195,11 +200,7 @@ public class MemberController {
 	}
 	
 	
-	@GetMapping("/mypage")
-	public String mypage() {
-		return "member/mypage";
-	}
-	
+
 	
 	@GetMapping("/id/{userid}")
 	@ResponseBody
