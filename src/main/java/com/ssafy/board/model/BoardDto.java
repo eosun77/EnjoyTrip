@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class BoardDto {
 	private int articleNo;
-	private String userId;
+	private int userId;
 	private String userName;
 	private String subject;
 	private String content;
@@ -39,11 +39,11 @@ public class BoardDto {
 		this.articleNo = articleNo;
 	}
 
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
