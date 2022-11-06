@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.board.model.mapper.BoardMapper">
+
+	<resultMap type="boardDto" id="article">
+		<result column="article_no" property="articleNo"/>
+		<result column="user_id" property="userId"/>
+		<result column="name" property="userName"/>
+		<result column="subject" property="subject"/>
+		<result column="content" property="content"/>
+		<result column="hit" property="hit"/>
+		<result column="register_time" property="registerTime"/>
+	</resultMap>
+	
+	<resultMap type="boardDto" id="viewArticle" extends="article">
+		<collection property="planList" column="article_no" javaType="list" ofType="planDto" select="plans"/>
+	</resultMap>
+	
+	<resultMap type="planDto" id="plan">
+		<result column="attraction_contentid" property="contentid"></result>
+	</resultMap>
+
+	<insert id="writeArticle" parameterType="boardDto">
+		insert into board (user_id, subject, content, hit, register_time)
+		values (#{userId}, #{subject}, #{content}, 0, now())
+		<selectKey resultType="int" keyProperty="articleNo" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="registerPlan" parameterType="boardDto">
+		insert into plan (board_id, memo, user_id, attraction_contentid, ord)
+		values
+		<foreach collection="planList" item="plan" separator=" , " index="i">
+			(#{articleNo}, #{plan.memo}, #{userId}, #{plan.contentid}, #{i})
+		</foreach>
+	</insert>
+
+
+	<select id="getArticleList" parameterType="map" resultMap="article">
+		select b.article_no ,b.user_id, b.subject, b.content, a.firstimage, u.name, b.register_time
+		from board b join plan p join user u join attraction a
+		where b.article_no = p.board_id and p.ord=0 and b.user_id = u.id and p.attraction_contentid = a.id
+		order by b.article_no desc
+	</select>
+	
+	<select id="getArticle" parameterType="string" resultMap="article">
+		select b.article_no ,b.user_id, b.subject, b.content, a.firstimage, u.name, b.register_time
+		from board b join plan p join user u join attraction a
+		where b.article_no = p.board_id and p.ord=0 and b.user_id = u.id and p.attraction_contentid = a.id and b.article_no=#{id}
+	</select>
+	
+	<select id="getPlan" parameterType="string" resultType="planDto">
+		select *
+		from plan p join attraction a
+		where board_id = #{id} and a.id = p.attraction_contentid
+	</select>
+	
+	
+
+</mapper>

@@ -1,3 +1,17 @@
+#planInner::-webkit-scrollbar{
+	width:0px;
+}
+
+
+body { overflow:hidden; }
+#planInner {
+	overflow-x : hidden;
+}
+#right-div {
+	height:855px;
+	overflow-y:auto;
+	overflow-x:hidden;
+	}
 .btn-circle {
   width: 40px;
   height: 40px;

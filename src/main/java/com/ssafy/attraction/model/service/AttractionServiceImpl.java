@@ -1,15 +1,14 @@
 package com.ssafy.attraction.model.service;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.attraction.model.AreaDto;
 import com.ssafy.attraction.model.AttractionDto;
-import com.ssafy.attraction.model.DetailDto;
 import com.ssafy.attraction.model.SearchCondition;
+import com.ssafy.attraction.model.SigunguDto;
 import com.ssafy.attraction.model.mapper.AttractionMapper;
 
 @Service
@@ -29,8 +28,18 @@ public class AttractionServiceImpl implements AttractionService {
 	}
 
 	@Override
-	public DetailDto detail(String id) {
+	public AttractionDto detail(String id) {
 		return attractionMapper.detail(id);
+	}
+
+	@Override
+	public List<AreaDto> getArea() {
+		return attractionMapper.getArea();
+	}
+
+	@Override
+	public List<SigunguDto> getSigungu(String areacode) {
+		return attractionMapper.getSigungu(areacode);
 	}
 
 }

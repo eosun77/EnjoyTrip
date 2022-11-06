@@ -4,14 +4,21 @@ public class AttractionDto {
 	
 	private String addr;
 	private String areacode;
-	private String contentid;
+	private String id;
 	private String contenttypeid;
 	private String firstimage;
 	private String mapx;
 	private String mapy;
 	private String sigungucode;
 	private String title;
+	private String overview;
 	
+	public String getOverview() {
+		return overview;
+	}
+	public void setOverview(String overview) {
+		this.overview = overview;
+	}
 	public String getAddr() {
 		return addr;
 	}
@@ -24,11 +31,11 @@ public class AttractionDto {
 	public void setAreacode(String areacode) {
 		this.areacode = areacode;
 	}
-	public String getContentid() {
-		return contentid;
+	public String getId() {
+		return id;
 	}
-	public void setContentid(String contentid) {
-		this.contentid = contentid;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getContenttypeid() {
 		return contenttypeid;

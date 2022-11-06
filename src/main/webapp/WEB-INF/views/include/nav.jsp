@@ -27,13 +27,13 @@
 					<a class="nav-link disabled">${userinfo.userName}님 반갑습니다.</a>
 				</li>
 				<li class="nav-item"><a class="nav-link"
-					href="#">여행 계획 보기</a>
+					href="${root}/board/list">여행 계획 보기</a>
 			    </li>
 				<li class="nav-item"><a class="nav-link"
-					href="${root}/member/mypage">마이페이지</a>
+					href="#">마이페이지</a>
 				</li>
 				<li class="nav-item"><a class="nav-link"
-					href="${root}/member/logout">로그아웃</a>
+					href="${root}/member/login">로그아웃</a>
 				</li>
 			</ul>
 		</c:otherwise>

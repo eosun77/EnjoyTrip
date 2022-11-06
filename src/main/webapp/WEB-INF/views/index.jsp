@@ -19,8 +19,7 @@
 		<div id="main-title" class="d-flex justify-content-center align-items-center flex-column">
 			<div>새로운 만남,<br> 새로운 장소 <br>지금 경험해보세요!</div>
 			<div>
-				<a class="text-decoration-none m-5" href="${root}/attraction">map</a>
-				<a class="text-decoration-none m-5" href="${root}/attraction/2">map2</a> 
+				<a class="text-decoration-none m-5" href="${root}/attraction">여행 계획 세우기</a>
 
 			</div>
 

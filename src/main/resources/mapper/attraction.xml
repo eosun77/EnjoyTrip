@@ -5,18 +5,35 @@
 <mapper namespace="com.ssafy.attraction.model.mapper.AttractionMapper">
 
 	<select id="search" resultType="AttractionDto" parameterType="SearchCondition">
-		select contentid, addr, areacode, contenttypeid, firstimage, mapx, mapy, sigungucode, title
+		select id, addr, areacode, contenttypeid, firstimage, mapx, mapy, sigungucode, title
 		from attraction
-		where contenttypeid = #{contentTypeId} and areacode = #{areaCode} and sigungucode = #{sigunguCode}
+		where contenttypeid = #{contentTypeId} 
+		<if test="areaCode != ''">
+		and areacode = #{areaCode} 
+		</if>
+		<if test="sigunguCode != ''">
+		and sigungucode = #{sigunguCode}
+		</if>
 		<if test="attractionSearch != ''">
 		and title like concat('%', #{attractionSearch}, '%')
 		</if>
-		order by contentid limit 100
+		order by contentid limit 50
 	</select>
 	
-	<select id="detail" resultType="DetailDto" parameterType="string">
-		select a.title, a.addr, d.overview, a.firstimage
-		from attraction a join detail d
-		where a.contentid=d.contentid and a.contentid=#{id}
+	<select id="detail" resultType="AttractionDto" parameterType="string">
+		select overview, title, firstimage, addr
+		from attraction
+		where id= #{id}
+	</select>
+	
+	<select id="getArea" resultType="AreaDto">
+		select areacode, name
+		from area
+	</select>
+	
+	<select id="getSigungu" resultType="SigunguDto" parameterType="string">
+		select sigungucode, areacode, name
+		from sigungu
+		where areacode= #{areacode}
 	</select>
 </mapper>
